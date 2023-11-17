@@ -48,24 +48,25 @@ import LNTCSVCoding
 struct SomeStruct: Equatable, Codable {
   var a: Int, b: Double?, c: String
 }
+
 struct OtherStruct: Equatable, Codable {
-  var a: Float?, b: SomeStruct 
+  var a: Float?, b: SomeStruct
 }
 
 let values = [
-  OtherStruct(a: 5.5, b: .init(a: 4.4, b: 1, c: "abc")),
-  OtherStruct(a: nil, b: .init(a: .infinity, b: nil, c: ""))
+    OtherStruct(a: 5.5, b: .init(a: 4, b: 1.0, c: "abc")),
+    OtherStruct(a: nil, b: .init(a: -3, b: .infinity, c: ""))
 ]
 
 let encoder = CSVEncoder() // default options
-let string = encoder.encode(values)
+let string1 = try encoder.encode(values)
 /*
-string = """ 
+string = """
   float,some.a,some.b,some.c
-  5.5,4,inf,abc
-  ,-3,,
+  5.5,4,1.0,abc
+  ,-3,inf,
   """
  */
-```
+ ```
 
 Note that both times the Swift data is a sequence of values. This is due to tabular nature of CSV.
